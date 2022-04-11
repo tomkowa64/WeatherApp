@@ -2,7 +2,7 @@
   <div class="container-gradient">
     <div class="auth-form">
       <div class="form-header">
-        <fa icon="cloud-sun" size="7x" :style="{ color: '#A9D7E8' }" />
+        <fa icon="sun" size="7x" :style="{ color: '#D7DA40' }" />
         <h1 class="title">Weather App</h1>
         <h3 class="subtitle">Know your weather</h3>
       </div>
@@ -25,12 +25,22 @@
             ><input placeholder="Type your password" type="password"
           /></template>
         </AuthFormInput>
-        <div class="password-recovery">Forgot password?</div>
+        <AuthFormInput>
+          <template #label-name>Repeat Password</template>
+          <template #prefix-icon>
+            <fa icon="lock" size="2x" :style="{ color: '#C4C4C4' }" />
+          </template>
+          <template #input-placeholder
+            ><input placeholder="Repeat your password" type="password"
+          /></template>
+        </AuthFormInput>
       </div>
       <div class="form-button-group">
-        <div class="form-button-login">LOGIN</div>
-        <router-link to="/register">
+        <router-link to="/">
           <div class="form-button-register">SIGN UP</div>
+        </router-link>
+        <router-link to="/">
+          <div class="form-button-login">BACK</div>
         </router-link>
       </div>
     </div>
@@ -48,5 +58,5 @@ import AuthFormInput from "@/components/AuthFormInput.vue";
 @Options({
   components: { AuthFormInput },
 })
-export default class Login extends Vue {}
+export default class Register extends Vue {}
 </script>
