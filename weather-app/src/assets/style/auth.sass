@@ -1,0 +1,102 @@
+$main-color: #A0D1E3
+$secondary-color: #FFFFFF
+$additional-color: #D7DA40
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap')
+
+.container-gradient
+    width: 100vw
+    height: 100vh
+    background: rgb(160,209,227)
+    background: linear-gradient(0deg, rgba(160,209,227,1) 0%, rgba(255,255,255,1) 100%)
+    display: flex
+    justify-content: center
+    align-items: center
+
+.auth-form
+    font-family: 'Roboto', sans-serif
+    width: 30vw
+    height: auto
+    background: $secondary-color
+    opacity: 0.8
+    border-radius: 15px
+    display: flex
+    flex-direction: column
+    align-items: center
+    gap: 30px
+    padding: 40px 50px 40px 50px
+    .form-header
+        width: 100%
+        display: flex
+        flex-direction: column
+        align-items: center
+        h1
+            margin: 10px 0 0 0
+        h3
+            margin: 0
+        .title
+            font-size: 40px
+        .subtitle
+            color: #939393
+            font-weight: 100
+    .form-input-group
+        width: 90%
+        height: auto
+        display: flex
+        flex-direction: column
+        .label
+            margin-top: 30px
+            color: #939393
+        .form-input
+            border-bottom: solid 1px #c4c4c4
+            width: 100%
+            display: flex
+            justify-content: space-between
+            padding: 5px 10px 10px 10px
+            margin: 10px 0 0 0
+            .input-value
+                width: 100%
+                padding: 0 20px 0 20px
+                display: flex
+                justify-content: center
+                justify-items: center
+                input
+                    width: 100%
+                    border: 0
+                    font-size: 19px
+                    color: #939393
+                input:focus
+                    outline: none
+        .password-recovery
+            margin-top: 10px
+            font-weight: 700
+            color: #939393
+            font-size: 15px
+            width: 100%
+            text-align: right
+    .password-recovery:hover
+        cursor: pointer
+    .form-button-group
+        width: 100%
+        .form-button-login:hover, .form-button-register:hover
+            cursor: pointer
+        .form-button-login
+            margin-top: 30px
+            font-size: 25px
+            width: 100%
+            height: auto
+            color: $secondary-color
+            background: $main-color
+            padding: 20px 0 20px 0
+            border-radius: 40px
+            text-align: center
+        .form-button-register
+            margin-top: 30px
+            font-size: 25px
+            width: 100%
+            height: auto
+            color: $secondary-color
+            background: $additional-color
+            padding: 20px 0 20px 0
+            border-radius: 40px
+            text-align: center
