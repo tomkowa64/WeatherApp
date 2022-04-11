@@ -1,9 +1,18 @@
+//Colors
 $main-color: #A0D1E3
 $secondary-color: #FFFFFF
 $additional-color: #D7DA40
 
+//Breakpoints
+$breakpoint-smaller-desktop: 1024px
+$breakpoint-tablet: 768px
+$breakpoint-mobile: 480px
+$breakpoint-smaller-mobile: 360px
+
+//Fonts
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap')
 
+//Rules
 .container-gradient
     width: 100vw
     height: 100vh
@@ -12,6 +21,8 @@ $additional-color: #D7DA40
     display: flex
     justify-content: center
     align-items: center
+    @media screen and (max-width: $breakpoint-mobile)
+        height: auto
 
 .auth-form
     -webkit-box-shadow: 0px 2px 17px -12px rgba(66, 68, 90, 1)
@@ -28,6 +39,17 @@ $additional-color: #D7DA40
     align-items: center
     gap: 30px
     padding: 40px 50px 40px 50px
+    @media screen and (max-width: $breakpoint-smaller-desktop)
+        width: 50vw
+    @media screen and (max-width: $breakpoint-tablet)
+        width: 70vw
+    @media screen and (max-width: $breakpoint-mobile)
+        padding: 20px 30px 10px 30px
+        width: 100vw
+        height: 100vh
+        border-radius: 0
+    @media screen and (max-width: $breakpoint-smaller-mobile)
+        padding: 10px 10px 10px 10px
     .form-header
         width: 100%
         display: flex
@@ -56,7 +78,9 @@ $additional-color: #D7DA40
             display: flex
             justify-content: space-between
             padding: 5px 10px 10px 10px
-            margin: 10px 0 0 0
+            @media screen and (max-width: $breakpoint-mobile)
+                padding: 5px 2px 5px 2px
+                margin: 10px 0 0 0
             .input-value
                 width: 100%
                 padding: 0 20px 0 20px
@@ -94,6 +118,8 @@ $additional-color: #D7DA40
             border-radius: 40px
             text-align: center
             border: 1px solid $main-color
+            @media screen and (max-width: $breakpoint-smaller-mobile)
+                padding: 15px 0 15px 0
         .form-button-login:hover
             background: $secondary-color
             color: $main-color
@@ -109,6 +135,8 @@ $additional-color: #D7DA40
             padding: 20px 0 20px 0
             border-radius: 40px
             text-align: center
+            @media screen and (max-width: $breakpoint-smaller-mobile)
+                padding: 15px 0 15px 0
         .form-button-register:hover
             background: $secondary-color
             color: $additional-color
