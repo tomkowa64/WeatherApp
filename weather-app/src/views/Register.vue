@@ -2,7 +2,7 @@
   <div class="container-gradient">
     <div class="auth-form">
       <div class="form-header">
-        <fa icon="cloud-sun" size="7x" :style="{ color: '#A9D7E8' }" />
+        <fa icon="sun" size="7x" :style="{ color: '#e0da34' }" />
         <h1 class="title">Weather App</h1>
         <h3 class="subtitle">Know your weather</h3>
       </div>
@@ -13,10 +13,7 @@
             <fa icon="user" size="2x" :style="{ color: '#C4C4C4' }" />
           </template>
           <template #input-placeholder
-            ><input
-              placeholder="Type your username"
-              name="username"
-              v-model="input.username"
+            ><input placeholder="Type your username"
           /></template>
         </AuthFormInput>
         <AuthFormInput>
@@ -25,19 +22,25 @@
             <fa icon="lock" size="2x" :style="{ color: '#C4C4C4' }" />
           </template>
           <template #input-placeholder
-            ><input
-              placeholder="Type your password"
-              type="password"
-              name="password"
-              v-model="input.password"
+            ><input placeholder="Type your password" type="password"
           /></template>
         </AuthFormInput>
-        <div class="password-recovery">Forgot password?</div>
+        <AuthFormInput>
+          <template #label-name>Repeat Password</template>
+          <template #prefix-icon>
+            <fa icon="lock" size="2x" :style="{ color: '#C4C4C4' }" />
+          </template>
+          <template #input-placeholder
+            ><input placeholder="Repeat your password" type="password"
+          /></template>
+        </AuthFormInput>
       </div>
       <div class="form-button-group">
-        <div class="form-button-login" v-on:click="login()">LOGIN</div>
-        <router-link to="/register">
+        <router-link to="/">
           <div class="form-button-register">SIGN UP</div>
+        </router-link>
+        <router-link to="/">
+          <div class="form-button-login">BACK</div>
         </router-link>
       </div>
     </div>
@@ -54,32 +57,6 @@ import AuthFormInput from "@/components/AuthFormInput.vue";
 
 @Options({
   components: { AuthFormInput },
-  methods: {
-    login() {
-      if (this.input.username != "" && this.input.password != "") {
-        if (
-          this.input.username == this.$parent.$parent.mockAccount.username &&
-          this.input.password == this.$parent.$parent.mockAccount.password
-        ) {
-          this.$emit("authenticated", true);
-          this.$router.replace({ name: "home" });
-        } else {
-          console.log("The username and / or password is incorrect");
-        }
-      } else {
-        console.log("A username and password must be present");
-      }
-    },
-  },
 })
-export default class Login extends Vue {
-  data() {
-    return {
-      input: {
-        username: "",
-        password: "",
-      },
-    };
-  }
-}
+export default class Register extends Vue {}
 </script>
