@@ -2,16 +2,6 @@
   <div class="home">
     <SideMenu />
     <div class="city-content">
-      <fa
-        icon="trash-can"
-        size="3x"
-        :style="{
-          color: '#FFF',
-          position: 'absolute',
-          top: '20px',
-          right: '20px',
-        }"
-      />
       <div class="city-name">Rzeszów</div>
       <div class="city-temp">
         <fa

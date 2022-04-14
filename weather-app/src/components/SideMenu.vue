@@ -1,5 +1,5 @@
 <template>
-  <div class="side-menu">
+  <div class="side-menu" v-bind:class="{ display: isDisplay }">
     <div class="find-location-input">
       <input placeholder="Find location" />
       <fa
@@ -10,10 +10,46 @@
     </div>
     <div class="city-list">
       <p class="active">Rzeszów</p>
-      <p>Rzym</p>
-      <p>Berlin</p>
-      <p>Warszawa</p>
-      <p>Berlin</p>
+      <p>
+        Rzym
+        <fa
+          icon="multiply"
+          size="1x"
+          :style="{
+            color: '#FFF',
+          }"
+        />
+      </p>
+      <p>
+        Berlin
+        <fa
+          icon="multiply"
+          size="1x"
+          :style="{
+            color: '#FFF',
+          }"
+        />
+      </p>
+      <p>
+        Warszawa
+        <fa
+          icon="multiply"
+          size="1x"
+          :style="{
+            color: '#FFF',
+          }"
+        />
+      </p>
+      <p>
+        Berlin
+        <fa
+          icon="multiply"
+          size="1x"
+          :style="{
+            color: '#FFF',
+          }"
+        />
+      </p>
     </div>
     <div class="current-city-details">
       <p class="active">Weather Details</p>
@@ -42,5 +78,7 @@
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
 
-export default class SideMenu extends Vue {}
+export default class SideMenu extends Vue {
+  isDisplay = false;
+}
 </script>

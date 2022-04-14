@@ -4,6 +4,12 @@ $white-opacity-text: hsla(0,0%,100%,0.5)
 //Fonts
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap')
 
+//Breakpoints
+$breakpoint-smaller-desktop: 1024px
+$breakpoint-tablet: 768px
+$breakpoint-mobile: 480px
+$breakpoint-smaller-mobile: 360px
+
 .home
     width: 100vw
     height: 100vh
@@ -16,19 +22,33 @@ $white-opacity-text: hsla(0,0%,100%,0.5)
     background-size: cover
     display: flex
     font-family: 'Roboto', sans-serif
+    @media screen and (max-width: $breakpoint-smaller-desktop)
+        flex-direction: column
+        width: 100%
+    .display
+        display: none
     .side-menu
         width: 30vw
         height: auto
         background: hsla(197, 46.7%, 14.7%, 0.67)
-        padding: 30px 30px 30px 20px
+        padding: 30px 20px 30px 20px
         display: flex
         flex-direction: column
         align-items: center
         gap: 50px
+        @media screen and (max-width: $breakpoint-smaller-desktop)
+            width: 100%
+            flex-direction: row
+            padding: 0
+        @media screen and (max-width: $breakpoint-tablet)
+            flex-direction: column
+            justify-content: center
         .find-location-input
             width: 100%
             display: flex
             border-bottom: 1px solid $white-opacity-text
+            @media screen and (max-width: $breakpoint-smaller-desktop)
+                align-items: flex-start
             input
                 font-size: 32px
                 background: transparent
@@ -47,6 +67,8 @@ $white-opacity-text: hsla(0,0%,100%,0.5)
             color: $white-opacity-text
             p
                 margin: 0
+                display: flex
+                justify-content: space-between
             .active
                 color: #FFFFFF !important
                 font-weight: 700
@@ -62,6 +84,8 @@ $white-opacity-text: hsla(0,0%,100%,0.5)
             flex-direction: column
             gap: 20px
             color: $white-opacity-text
+            @media screen and (max-width: $breakpoint-smaller-desktop)
+                border: 0
             p
                 margin: 0
             .active
@@ -86,6 +110,16 @@ $white-opacity-text: hsla(0,0%,100%,0.5)
         flex-direction: column
         align-items: center
         gap: 20px
+        overflow: auto
+        -ms-overflow-style: none
+        scrollbar-width: none
+        .hamburger-menu-icon
+            width: 100%
+            display: flex
+            padding: 20px 0 0 20px
+        @media screen and (max-width: $breakpoint-smaller-desktop)
+            width: 100%
+            padding: 0
         .city-name
             width: 100%
             color: #FFF
@@ -131,6 +165,7 @@ $white-opacity-text: hsla(0,0%,100%,0.5)
                 display: flex
                 gap: 25px
                 flex-grow: 1
+                overflow: auto
                 .square
                     display: flex
                     gap: 15px
@@ -163,3 +198,5 @@ $white-opacity-text: hsla(0,0%,100%,0.5)
                 .active
                     background: #ffffff41
                     border-radius: 5px
+    .city-content::-webkit-scrollbar
+        display: none
