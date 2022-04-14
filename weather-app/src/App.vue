@@ -13,7 +13,7 @@ import Login from "@/views/Login.vue";
 @Options({
   components: { Login },
   methods: {
-    setAuthenticated(status) {
+    setAuthenticated(status: boolean) {
       this.authenticated = status;
     },
     logout() {
@@ -22,9 +22,10 @@ import Login from "@/views/Login.vue";
   },
 })
 export default class App extends Vue {
+  authenticated = false;
+
   data() {
     return {
-      authenticated: false,
       mockAccount: {
         username: "admin",
         password: "admin",

@@ -2,7 +2,7 @@
   <div class="container-gradient">
     <div class="auth-form">
       <div class="form-header">
-        <fa icon="sun" size="7x" :style="{ color: '#D7DA40' }" />
+        <fa icon="sun" size="7x" :style="{ color: '#e0da34' }" />
         <h1 class="title">Weather App</h1>
         <h3 class="subtitle">Know your weather</h3>
       </div>
