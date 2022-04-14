@@ -1,0 +1,202 @@
+//Colors
+$white-opacity-text: hsla(0,0%,100%,0.5)
+
+//Fonts
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap')
+
+//Breakpoints
+$breakpoint-smaller-desktop: 1024px
+$breakpoint-tablet: 768px
+$breakpoint-mobile: 480px
+$breakpoint-smaller-mobile: 360px
+
+.home
+    width: 100vw
+    height: 100vh
+    padding: 0
+    margin: 0
+    background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url("@/assets/images/bg.jpg") no-repeat center center fixed
+    -webkit-background-size: cover
+    -moz-background-size: cover
+    -o-background-size: cover
+    background-size: cover
+    display: flex
+    font-family: 'Roboto', sans-serif
+    @media screen and (max-width: $breakpoint-smaller-desktop)
+        flex-direction: column
+        width: 100%
+    .display
+        display: none
+    .side-menu
+        width: 30vw
+        height: auto
+        background: hsla(197, 46.7%, 14.7%, 0.67)
+        padding: 30px 20px 30px 20px
+        display: flex
+        flex-direction: column
+        align-items: center
+        gap: 50px
+        @media screen and (max-width: $breakpoint-smaller-desktop)
+            width: 100%
+            flex-direction: row
+            padding: 0
+        @media screen and (max-width: $breakpoint-tablet)
+            flex-direction: column
+            justify-content: center
+        .find-location-input
+            width: 100%
+            display: flex
+            border-bottom: 1px solid $white-opacity-text
+            @media screen and (max-width: $breakpoint-smaller-desktop)
+                align-items: flex-start
+            input
+                font-size: 32px
+                background: transparent
+                border: 0
+                color: $white-opacity-text
+                width: 90%
+            input:focus
+                outline: none
+        .city-list
+            height: auto
+            font-size: 24px
+            width: 100%
+            display: flex
+            flex-direction: column
+            gap: 20px
+            color: $white-opacity-text
+            p
+                margin: 0
+                display: flex
+                justify-content: space-between
+            .active
+                color: #FFFFFF !important
+                font-weight: 700
+            .add-city
+                font-size: 48px
+        .current-city-details
+            border-top: 1px solid $white-opacity-text
+            padding-top: 20px
+            height: auto
+            font-size: 24px
+            width: 100%
+            display: flex
+            flex-direction: column
+            gap: 20px
+            color: $white-opacity-text
+            @media screen and (max-width: $breakpoint-smaller-desktop)
+                border: 0
+            p
+                margin: 0
+            .active
+                color: #FFFFFF !important
+                font-weight: 700
+            .detail
+                width: 80%
+                display: flex
+                .key
+                    width: 50%
+                    text-align: left
+                .value
+                    width: 50%
+                    text-align: right
+                    color: #FFFFFF
+                    font-weight: bold
+    .city-content
+        width: 70vw
+        height: auto
+        padding: 40px 30px 30px 20px
+        display: flex
+        flex-direction: column
+        align-items: center
+        gap: 20px
+        overflow: auto
+        -ms-overflow-style: none
+        scrollbar-width: none
+        .hamburger-menu-icon
+            width: 100%
+            display: flex
+            padding: 20px 0 0 20px
+        @media screen and (max-width: $breakpoint-smaller-desktop)
+            width: 100%
+            padding: 0
+        .city-name
+            width: 100%
+            color: #FFF
+            font-size: 64px
+            text-align: center
+        .city-temp
+            width: 100%
+            color: #FFF
+            display: flex
+            gap: 30px
+            justify-content: center
+            align-items: center
+            .temp-value
+                font-size: 128px
+        .short-desc
+            width: 100%
+            color: #FFF
+            font-size: 48px
+            text-align: center
+        .last-update
+            width: 100%
+            color: #FFF
+            font-size: 24px
+            text-align: center
+        .forecast-section
+            width: 100% //to auto
+            display: flex
+            flex-direction: column
+            padding: 5px
+            flex-grow: 1
+            .title
+                font-size: 32px
+                color: #FFF
+                width: 95%
+                border-bottom: 1px solid #ffffff75
+                display: flex
+                margin-left: auto
+                margin-right: auto
+            .square-list
+                height: auto
+                width: 100%
+                padding: 10px 0 10px 0
+                display: flex
+                gap: 25px
+                flex-grow: 1
+                overflow: auto
+                .square
+                    display: flex
+                    gap: 15px
+                    flex-direction: column
+                    justify-content: center
+                    height: auto
+                    padding: 20px 10px
+                    flex-grow: 1
+                    .time
+                        color: #FFF
+                        font-size: 20px
+                        text-align: center
+                        font-weight: bold
+                    .details
+                        display: flex
+                        gap: 10px
+                        justify-content: center
+                        .temperature
+                            display: flex
+                            flex-direction: column
+                            text-align: right
+                            .actual-temperature
+                                font-size: 32px
+                                color: #FFF
+                            .feels-like
+                                font-size: 20px
+                                color: #ffffff80
+                    .short-desc
+                        font-size: 14px
+                .active
+                    background: #ffffff41
+                    border-radius: 5px
+    .city-content::-webkit-scrollbar
+        display: none

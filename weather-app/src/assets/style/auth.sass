@@ -17,7 +17,11 @@ $breakpoint-smaller-mobile: 360px
     width: 100vw
     height: 100vh
     background: rgb(160,209,227)
-    background: linear-gradient(0deg, rgba(160,209,227,1) 0%, rgba(255,255,255,1) 100%)
+    background: url("@/assets/images/bg.jpg") no-repeat center center fixed
+    -webkit-background-size: cover
+    -moz-background-size: cover
+    -o-background-size: cover
+    background-size: cover
     display: flex
     justify-content: center
     align-items: center
@@ -32,7 +36,7 @@ $breakpoint-smaller-mobile: 360px
     width: 30vw
     height: auto
     background: $secondary-color
-    opacity: 0.8
+    opacity: 0.9
     border-radius: 15px
     display: flex
     flex-direction: column

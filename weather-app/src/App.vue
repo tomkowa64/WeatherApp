@@ -9,9 +9,10 @@
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
 import Login from "@/views/Login.vue";
+import Home from "@/views/Home.vue";
 
 @Options({
-  components: { Login },
+  components: { Login, Home },
   methods: {
     setAuthenticated(status: boolean) {
       this.authenticated = status;
