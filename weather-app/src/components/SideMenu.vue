@@ -23,8 +23,7 @@
       </li>
     </ul>
     <div class="city-list">
-      <p class="active">Rzeszów</p>
-      <CitiesList :favorites="this.favorites" />
+      <CitiesList :favorites="this.favorites" :activeCityId="this.activeCity" />
     </div>
     <div class="current-city-details">
       <p class="active">Weather Details</p>
@@ -67,20 +66,29 @@ export default class SideMenu extends Vue {
 
   //Props
   private favorites: City[] = [];
-
+  private activeCity = 0;
+  //Load Methods
   public async data(): Promise<void> {
     await this.loadData();
   }
 
   private async loadData(): Promise<void> {
     this.favorites = await this.store.state.favorites;
+    this.activeCity = this.favorites[0].id;
     console.log(this.favorites);
+    console.log(this.activeCity);
   }
 
   public deleteCity = (city: City) => {
     this.store.commit(MutationTypes.REMOVE_FAVORITE, city);
   };
 
+  public makeActive = (city: City) => {
+    this.activeCity = city.id;
+    console.log(this.activeCity);
+  };
+
+  //Setup for SearchBox tips
   context = setup(() => {
     let searchTerm = ref("");
 
@@ -101,6 +109,7 @@ export default class SideMenu extends Vue {
       });
     });
 
+    //Add city to current favorite cities list in vuex
     const selectCity = (city: City) => {
       this.store.commit(MutationTypes.ADD_FAVORITE, city);
       selectedCity.value = city.name;
