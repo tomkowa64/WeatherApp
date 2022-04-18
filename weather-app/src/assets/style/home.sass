@@ -22,6 +22,20 @@ $breakpoint-smaller-mobile: 360px
     background-size: cover
     display: flex
     font-family: 'Roboto', sans-serif
+    ul
+        list-style: none
+        padding: 0
+        margin: 0
+        width: 100%
+        li
+            color: #fff
+            padding: 10px 0 10px 0
+            height: auto
+            font-size: 24px
+            background: #ffffff3f
+            cursor: pointer
+        li:hover
+            background: #ffffff6b
     @media screen and (max-width: $breakpoint-smaller-desktop)
         flex-direction: column
         width: 100%
@@ -35,7 +49,6 @@ $breakpoint-smaller-mobile: 360px
         display: flex
         flex-direction: column
         align-items: center
-        gap: 50px
         @media screen and (max-width: $breakpoint-smaller-desktop)
             width: 100%
             flex-direction: row
@@ -58,6 +71,7 @@ $breakpoint-smaller-mobile: 360px
             input:focus
                 outline: none
         .city-list
+            margin-top: 50px
             height: auto
             font-size: 24px
             width: 100%
@@ -69,6 +83,8 @@ $breakpoint-smaller-mobile: 360px
                 margin: 0
                 display: flex
                 justify-content: space-between
+                svg
+                    cursor: pointer
             .active
                 color: #FFFFFF !important
                 font-weight: 700
@@ -76,6 +92,7 @@ $breakpoint-smaller-mobile: 360px
                 font-size: 48px
         .current-city-details
             border-top: 1px solid $white-opacity-text
+            margin-top: 50px
             padding-top: 20px
             height: auto
             font-size: 24px

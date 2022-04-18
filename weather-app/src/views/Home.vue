@@ -35,7 +35,7 @@
             <template #short-desc>Mostly sunny</template>
           </WeatherDataSquare>
           <WeatherDataSquare>
-            <template #time>Wen 15</template>
+            <template #time>Wed 15</template>
             <template #icon>
               <fa
                 icon="cloud"
@@ -50,7 +50,7 @@
             <template #short-desc>Cloudy</template>
           </WeatherDataSquare>
           <WeatherDataSquare>
-            <template #time>Wen 16</template>
+            <template #time>Thu 16</template>
             <template #icon>
               <fa
                 icon="cloud"
@@ -65,7 +65,7 @@
             <template #short-desc>Cloudy</template>
           </WeatherDataSquare>
           <WeatherDataSquare>
-            <template #time>Wen 17</template>
+            <template #time>Fri 17</template>
             <template #icon>
               <fa
                 icon="cloud"
@@ -80,7 +80,7 @@
             <template #short-desc>Cloudy</template>
           </WeatherDataSquare>
           <WeatherDataSquare>
-            <template #time>Thu 18</template>
+            <template #time>Sat 18</template>
             <template #icon>
               <fa
                 icon="sun"
@@ -95,7 +95,7 @@
             <template #short-desc>Mostly sunny</template>
           </WeatherDataSquare>
           <WeatherDataSquare>
-            <template #time>Thu 19</template>
+            <template #time>Sun 19</template>
             <template #icon>
               <fa
                 icon="sun"
@@ -110,7 +110,7 @@
             <template #short-desc>Mostly sunny</template>
           </WeatherDataSquare>
           <WeatherDataSquare>
-            <template #time>Thu 14</template>
+            <template #time>Mon 14</template>
             <template #icon>
               <fa
                 icon="cloud-rain"
