@@ -12,7 +12,9 @@
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "useDefineForClassFields": true,
+    "strictPropertyInitialization": false,
     "sourceMap": true,
+    "resolveJsonModule": true,
     "baseUrl": ".",
     "types": [
       "webpack-env"
