@@ -49,6 +49,7 @@ $breakpoint-smaller-mobile: 360px
         display: flex
         flex-direction: column
         align-items: center
+        overflow: auto
         @media screen and (max-width: $breakpoint-smaller-desktop)
             width: 100%
             flex-direction: row
@@ -85,6 +86,10 @@ $breakpoint-smaller-mobile: 360px
                 justify-content: space-between
                 svg
                     cursor: pointer
+                a
+                    cursor: pointer
+                a:hover
+                    color: hsla(0,0%,100%,0.8)
             .active
                 color: #FFFFFF !important
                 font-weight: 700
@@ -130,6 +135,28 @@ $breakpoint-smaller-mobile: 360px
         overflow: auto
         -ms-overflow-style: none
         scrollbar-width: none
+        .details
+            width: 100%
+            display: flex
+            justify-content: center
+            gap: 40px
+            .weather-props
+                display: flex
+                flex-direction: column
+                gap: 30px
+                color: #FFF
+                font-size: 24px
+                justify-content: flex-end
+        .empty-information
+            width: 100%
+            height: 100%
+            color: hsla(197deg, 46.7%, 14.7%, 0.67)
+            font-size: 24px
+            display: flex
+            justify-content: center
+            align-items: center
+            flex-direction: column
+            gap: 20px
         .hamburger-menu-icon
             width: 100%
             display: flex
@@ -191,6 +218,7 @@ $breakpoint-smaller-mobile: 360px
                     height: auto
                     padding: 20px 10px
                     flex-grow: 1
+                    max-width: 15%
                     .time
                         color: #FFF
                         font-size: 20px

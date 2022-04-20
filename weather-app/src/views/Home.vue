@@ -1,22 +1,50 @@
 <template>
-  <div class="home">
+  <div class="home" :class="checkState() ? 'blank' : 'sunny'">
     <SideMenu :activeCity="this.activeCity" />
     <div class="city-content">
+      <div
+        class="empty-information"
+        v-if="this.store.state.favorites.length == 0"
+      >
+        <fa
+          icon="cloud-sun-rain"
+          size="4x"
+          :style="{
+            color: 'hsla(197deg, 46.7%, 14.7%, 0.67)',
+          }"
+        />
+        Add favorite city to observe weather
+      </div>
       <CityDetails
+        v-if="this.store.state.favorites.length > 0"
         :name="this.currentWeather.name"
         :temp="this.currentWeather.main.temp"
         :desc="this.currentWeather.weather[0].description"
       />
       <!-- DAILY -->
-      <CityDailyForecast :forecast="this.forecast" />
+      <CityDailyForecast
+        :forecast="this.forecast"
+        v-if="this.store.state.favorites.length > 0"
+      />
       <!-- HOURLY -->
-      <CityHourlyForecast :forecast="this.forecast" />
+      <CityHourlyForecast
+        :forecast="this.forecast"
+        v-if="this.store.state.favorites.length > 0"
+      />
     </div>
   </div>
 </template>
 <style lang="scss" scoped>
 @import "@/assets/style/default.sass";
 @import "@/assets/style/home.sass";
+
+.blank {
+  background: #fff;
+}
+.sunny {
+  background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+    url("@/assets/images/bg.jpg") no-repeat center center fixed cover;
+}
 </style>
 <script lang="ts">
 import { Options, Vue } from "vue-class-component";
@@ -42,7 +70,6 @@ export default class Home extends Vue {
   private currentWeather?: CurrentWeather = {} as CurrentWeather;
   private forecast?: Forecast = {} as Forecast;
   private currentDate: Date = new Date();
-
   //Load Methods
   public async data(): Promise<void> {
     await this.loadData();
@@ -86,6 +113,14 @@ export default class Home extends Vue {
     return Math.round(temp - 273.15);
   }
 
+  public checkState(): boolean {
+    if (this.store.state.favorites.length == 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   public getCurrDate(startDate: Date, index: number): string[] {
     let days: string[] = [];
     let currentDate = new Date();
@@ -110,14 +145,18 @@ export default class Home extends Vue {
   }
 
   private async loadData(): Promise<void> {
-    this.favorites = await this.store.state.favorites;
-    this.activeCity = await this.favorites[0];
-    this.currentWeather = await this.getCurrentWeather(this.activeCity);
-    this.forecast = await this.getForecast(this.activeCity);
-    console.log("curr");
-    console.log(this.currentWeather);
-    console.log("forecast");
-    console.log(this.forecast);
+    try {
+      this.favorites = await this.store.state.favorites;
+      this.activeCity = await this.favorites[0];
+      this.currentWeather = await this.getCurrentWeather(this.activeCity);
+      this.forecast = await this.getForecast(this.activeCity);
+      console.log("curr");
+      console.log(this.currentWeather);
+      console.log("forecast");
+      console.log(this.forecast);
+    } catch {
+      console.log("API init error");
+    }
   }
 }
 </script>

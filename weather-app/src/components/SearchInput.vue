@@ -16,7 +16,7 @@
     <ul v-if="context.searchCities.length" class="search-hints">
       <li
         v-for="city in context.searchCities"
-        :key="city.name"
+        :key="city.id"
         @click="context.selectCity(city)"
       >
         {{ city.name }}, {{ city.country }}
@@ -30,15 +30,13 @@
 </style>
 <script lang="ts">
 import { Options, Vue, setup } from "vue-class-component";
-import cities from "@/assets/data/city.list.min.json"; //Change to min in final version
+import cities from "@/assets/data/city.list.min.json";
 import { ref, computed, watch, reactive } from "vue";
 import { City } from "@/models/City";
 import { useStore, ActionTypes, MutationTypes } from "@/store";
 
 export default class SearchInput extends Vue {
-  //Vuex Store
   store = useStore();
-
   context = setup(() => {
     let searchTerm = ref("");
     const searchCities = computed(() => {

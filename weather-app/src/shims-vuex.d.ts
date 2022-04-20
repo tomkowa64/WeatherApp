@@ -1,12 +1,10 @@
-// vuex.d.ts
-import { Store } from "vuex";
-import { State } from "@/store";
+import { Store } from "@/store";
 import { City } from "@/models/City";
 
 declare module "@vue/runtime-core" {
   // provide typings for `this.$store`
   interface ComponentCustomProperties {
-    $store: Store<State>;
+    $store: Store;
   }
 }
 
