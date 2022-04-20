@@ -13,11 +13,13 @@
     "forceConsistentCasingInFileNames": true,
     "useDefineForClassFields": true,
     "strictPropertyInitialization": false,
+    "emitDecoratorMetadata": true,
     "sourceMap": true,
     "resolveJsonModule": true,
     "baseUrl": ".",
     "types": [
-      "webpack-env"
+      "webpack-env",
+      "reflect-metadata"
     ],
     "paths": {
       "@/*": [
@@ -28,7 +30,8 @@
       "esnext",
       "dom",
       "dom.iterable",
-      "scripthost"
+      "scripthost",
+      "es6"
     ]
   },
   "include": [

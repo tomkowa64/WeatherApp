@@ -3,5 +3,8 @@ export interface City {
   name: string;
   state: string;
   country: string;
-  coord: { [key: string]: number };
+  coord: {
+    lon: number;
+    lat: number;
+  };
 }

@@ -18,6 +18,8 @@
 </template>
 
 <script setup lang="ts">
+import { defineProps } from "vue-class-component";
+
 defineProps<{
   favorites: City[];
   activeCityId: number;
@@ -32,7 +34,7 @@ a
 </style>
 
 <script lang="ts">
-import { Options, Vue, defineProps } from "vue-class-component";
+import { Options, Vue } from "vue-class-component";
 import { City } from "@/models/City";
 
 export default class CitiesList extends Vue {}
