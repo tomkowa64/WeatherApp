@@ -4,11 +4,22 @@
       <div class="city-name">{{ name }}</div>
       <div class="city-temp">
         <fa
-          icon="cloud-sun"
+          v-if="$parent.show(desc) === 'sun'"
+          icon="sun"
           size="7x"
-          :style="{
-            color: '#FFF',
-          }"
+          :style="{ color: '#FFF' }"
+        />
+        <fa
+          v-if="$parent.show(desc) === 'rain'"
+          icon="cloud-rain"
+          size="7x"
+          :style="{ color: '#FFF' }"
+        />
+        <fa
+          v-if="$parent.show(desc) === 'clouds'"
+          icon="cloud"
+          size="7x"
+          :style="{ color: '#FFF' }"
         />
         <div class="temp-value">{{ $parent.caclculateCelsius(temp) }}°C</div>
       </div>

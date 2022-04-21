@@ -10,7 +10,7 @@
           icon="cloud-sun-rain"
           size="4x"
           :style="{
-            color: 'hsla(197deg, 46.7%, 14.7%, 0.67)',
+            color: 'hsla(196.7, 89.6%, 18.8%, 0.93)',
           }"
         />
         Add favorite city to observe weather
@@ -56,7 +56,8 @@ import { useStore, ActionTypes, MutationTypes } from "@/store";
 import { City } from "@/models/City";
 import { CurrentWeather } from "@/models/CurrentWeather";
 import { Forecast } from "@/models/Forecast";
-
+import { mockCurrentWeather } from "@/mock/mockCurrentWeather";
+import { mockForecast } from "@/mock/mockForecast";
 @Options({
   components: { SideMenu, CityDetails, CityDailyForecast, CityHourlyForecast },
 })
@@ -66,165 +67,8 @@ export default class Home extends Vue {
 
   //Props
   private favorites: City[] = [];
-  private currentWeather: CurrentWeather = {
-    coord: {
-      lon: 0,
-      lat: 0,
-    },
-    weather: [
-      {
-        id: 0,
-        main: "",
-        description: "",
-        icon: "",
-      },
-    ],
-
-    base: "",
-    main: {
-      temp: 0,
-      feels_like: 0,
-      temp_min: 0,
-      temp_max: 0,
-      pressure: 0,
-      humidity: 0,
-    },
-    visibility: 0,
-    wind: {
-      speed: 0,
-      deg: 0,
-    },
-    clouds: {
-      all: 0,
-    },
-    dt: 0,
-    sys: {
-      type: 0,
-      id: 0,
-      message: 0,
-      country: "",
-      sunrise: 0,
-      sunset: 0,
-    },
-    timezone: 0,
-    id: 0,
-    name: "",
-    cod: 0,
-  };
-  private forecast: Forecast = {
-    lat: 0,
-    lon: 0,
-    timezone: "",
-    timezone_offset: 0,
-    current: {
-      dt: 0,
-      sunrise: 0,
-      sunset: 0,
-      temp: 0,
-      feels_like: 0,
-      pressure: 0,
-      humidity: 0,
-      dew_point: 0,
-      uvi: 0,
-      clouds: 0,
-      visibility: 0,
-      wind_speed: 0,
-      wind_deg: 0,
-      weather: [
-        {
-          id: 0,
-          main: "",
-          description: "",
-          icon: "",
-        },
-      ],
-      rain: {
-        h: "",
-      },
-    },
-    minutely: [
-      {
-        dt: 0,
-        precipitation: 0,
-      },
-    ],
-    hourly: [
-      {
-        dt: 0,
-        temp: 0,
-        feels_like: 0,
-        pressure: 0,
-        humidity: 0,
-        dew_point: 0,
-        uvi: 0,
-        clouds: 0,
-        visibility: 0,
-        wind_speed: 0,
-        wind_deg: 0,
-        wind_gust: 0,
-        weather: [
-          {
-            id: 0,
-            main: "",
-            description: "",
-            icon: "",
-          },
-        ],
-        pop: 0,
-      },
-    ],
-    daily: [
-      {
-        dt: 0,
-        sunrise: 0,
-        sunset: 0,
-        moonrise: 0,
-        moonset: 0,
-        moon_phase: 0,
-        temp: {
-          day: 0,
-          min: 0,
-          max: 0,
-          night: 0,
-          eve: 0,
-          morn: 0,
-        },
-        feels_like: {
-          day: 0,
-          night: 0,
-          eve: 0,
-          morn: 0,
-        },
-        pressure: 0,
-        humidity: 0,
-        dew_point: 0,
-        wind_speed: 0,
-        wind_deg: 0,
-        weather: [
-          {
-            id: 0,
-            main: "",
-            description: "",
-            icon: "",
-          },
-        ],
-        clouds: 0,
-        pop: 0,
-        rain: 0,
-        uvi: 0,
-      },
-    ],
-    alerts: [
-      {
-        sender_name: "",
-        event: "",
-        start: 0,
-        end: 0,
-        description: "",
-        tags: [""],
-      },
-    ],
-  };
+  private currentWeather: CurrentWeather = mockCurrentWeather;
+  private forecast: Forecast = mockForecast;
 
   private currentDate: Date = new Date();
 
@@ -302,6 +146,22 @@ export default class Home extends Vue {
     let currentHour = currentDate.getHours();
     hours.push(currentHour);
     return hours;
+  }
+
+  public show(propsReturnedValue: string): string {
+    if (propsReturnedValue.includes("clear")) {
+      return "sun";
+    } else if (propsReturnedValue.includes("rain")) {
+      return "rain";
+    } else if (propsReturnedValue.includes("clouds")) {
+      return "clouds";
+    } else if (propsReturnedValue.includes("sun")) {
+      return "sun";
+    } else if (propsReturnedValue.includes("storm")) {
+      return "storm";
+    } else {
+      return "sun";
+    }
   }
 
   private async loadData(): Promise<void> {

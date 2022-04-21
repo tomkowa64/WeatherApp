@@ -12,11 +12,22 @@
         </template>
         <template #icon>
           <fa
+            v-if="$parent.show(item.weather[0].description) === 'sun'"
             icon="sun"
             size="4x"
-            :style="{
-              color: '#E1DC5B',
-            }"
+            :style="{ color: '#E1DC5B' }"
+          />
+          <fa
+            v-if="$parent.show(item.weather[0].description) === 'rain'"
+            icon="cloud-rain"
+            size="4x"
+            :style="{ color: 'rgb(91, 150, 225)' }"
+          />
+          <fa
+            v-if="$parent.show(item.weather[0].description) === 'clouds'"
+            icon="cloud"
+            size="4x"
+            :style="{ color: 'rgb(179, 179, 179)' }"
           />
         </template>
         <template #actual-temperature
