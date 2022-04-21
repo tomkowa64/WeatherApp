@@ -31,11 +31,15 @@
   </div>
 </template>
 <script setup lang="ts">
-import { defineProps } from "vue-class-component";
+import { defineProps, withDefaults } from "vue-class-component";
 
-defineProps<{
+interface Props {
   forecast: Forecast;
-}>();
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  forecast: {} as Forecast,
+});
 </script>
 
 <script lang="ts">

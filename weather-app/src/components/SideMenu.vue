@@ -4,7 +4,7 @@
     <div class="city-list">
       <p v-for="city in this.$store.state.favorites" :key="city">
         <a
-          :class="{ active: city.id === $parent.activeCity.id }"
+          :class="{ active: city.id === $parent.store.state.activeCity.id }"
           @click="this.$parent.changeContent(city)"
         >
           {{ city.name }}
@@ -35,6 +35,5 @@ defineProps<{
 import { Options, Vue, setup } from "vue-class-component";
 import { City } from "@/models/City";
 import SearchInput from "@/components/SearchInput.vue";
-
 export default class SideMenu extends Vue {}
 </script>

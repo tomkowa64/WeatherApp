@@ -1,6 +1,6 @@
 <template>
   <div class="home" :class="checkState() ? 'blank' : 'sunny'">
-    <SideMenu :activeCity="this.activeCity" />
+    <SideMenu :activeCity="this.store.state.activeCity" />
     <div class="city-content">
       <div
         class="empty-information"
@@ -16,20 +16,20 @@
         Add favorite city to observe weather
       </div>
       <CityDetails
-        v-if="this.store.state.favorites.length > 0"
-        :name="this.currentWeather.name"
-        :temp="this.currentWeather.main.temp"
-        :desc="this.currentWeather.weather[0].description"
+        v-if="this.store.state.favorites.length > 0 && currentWeather !== {}"
+        :name="currentWeather.name"
+        :temp="currentWeather.main.temp"
+        :desc="currentWeather.weather[0].description"
       />
       <!-- DAILY -->
       <CityDailyForecast
+        v-if="this.store.state.favorites.length > 0 && currentWeather !== {}"
         :forecast="this.forecast"
-        v-if="this.store.state.favorites.length > 0"
       />
       <!-- HOURLY -->
       <CityHourlyForecast
+        v-if="this.store.state.favorites.length > 0 && currentWeather !== {}"
         :forecast="this.forecast"
-        v-if="this.store.state.favorites.length > 0"
       />
     </div>
   </div>
@@ -66,10 +66,168 @@ export default class Home extends Vue {
 
   //Props
   private favorites: City[] = [];
-  private activeCity?: City = {} as City;
-  private currentWeather?: CurrentWeather = {} as CurrentWeather;
-  private forecast?: Forecast = {} as Forecast;
+  private currentWeather: CurrentWeather = {
+    coord: {
+      lon: 0,
+      lat: 0,
+    },
+    weather: [
+      {
+        id: 0,
+        main: "",
+        description: "",
+        icon: "",
+      },
+    ],
+
+    base: "",
+    main: {
+      temp: 0,
+      feels_like: 0,
+      temp_min: 0,
+      temp_max: 0,
+      pressure: 0,
+      humidity: 0,
+    },
+    visibility: 0,
+    wind: {
+      speed: 0,
+      deg: 0,
+    },
+    clouds: {
+      all: 0,
+    },
+    dt: 0,
+    sys: {
+      type: 0,
+      id: 0,
+      message: 0,
+      country: "",
+      sunrise: 0,
+      sunset: 0,
+    },
+    timezone: 0,
+    id: 0,
+    name: "",
+    cod: 0,
+  };
+  private forecast: Forecast = {
+    lat: 0,
+    lon: 0,
+    timezone: "",
+    timezone_offset: 0,
+    current: {
+      dt: 0,
+      sunrise: 0,
+      sunset: 0,
+      temp: 0,
+      feels_like: 0,
+      pressure: 0,
+      humidity: 0,
+      dew_point: 0,
+      uvi: 0,
+      clouds: 0,
+      visibility: 0,
+      wind_speed: 0,
+      wind_deg: 0,
+      weather: [
+        {
+          id: 0,
+          main: "",
+          description: "",
+          icon: "",
+        },
+      ],
+      rain: {
+        h: "",
+      },
+    },
+    minutely: [
+      {
+        dt: 0,
+        precipitation: 0,
+      },
+    ],
+    hourly: [
+      {
+        dt: 0,
+        temp: 0,
+        feels_like: 0,
+        pressure: 0,
+        humidity: 0,
+        dew_point: 0,
+        uvi: 0,
+        clouds: 0,
+        visibility: 0,
+        wind_speed: 0,
+        wind_deg: 0,
+        wind_gust: 0,
+        weather: [
+          {
+            id: 0,
+            main: "",
+            description: "",
+            icon: "",
+          },
+        ],
+        pop: 0,
+      },
+    ],
+    daily: [
+      {
+        dt: 0,
+        sunrise: 0,
+        sunset: 0,
+        moonrise: 0,
+        moonset: 0,
+        moon_phase: 0,
+        temp: {
+          day: 0,
+          min: 0,
+          max: 0,
+          night: 0,
+          eve: 0,
+          morn: 0,
+        },
+        feels_like: {
+          day: 0,
+          night: 0,
+          eve: 0,
+          morn: 0,
+        },
+        pressure: 0,
+        humidity: 0,
+        dew_point: 0,
+        wind_speed: 0,
+        wind_deg: 0,
+        weather: [
+          {
+            id: 0,
+            main: "",
+            description: "",
+            icon: "",
+          },
+        ],
+        clouds: 0,
+        pop: 0,
+        rain: 0,
+        uvi: 0,
+      },
+    ],
+    alerts: [
+      {
+        sender_name: "",
+        event: "",
+        start: 0,
+        end: 0,
+        description: "",
+        tags: [""],
+      },
+    ],
+  };
+
   private currentDate: Date = new Date();
+
   //Load Methods
   public async data(): Promise<void> {
     await this.loadData();
@@ -97,9 +255,11 @@ export default class Home extends Vue {
 
   public async changeContent(city: City) {
     try {
-      this.activeCity = city;
-      this.currentWeather = await this.getCurrentWeather(this.activeCity);
-      this.forecast = await this.getForecast(this.activeCity);
+      this.store.commit(MutationTypes.SET_ACTIVE, city);
+      this.currentWeather = await this.getCurrentWeather(
+        this.store.state.activeCity
+      );
+      this.forecast = await this.getForecast(this.store.state.activeCity);
       console.log(this.currentWeather);
     } catch {
       console.log("err");
@@ -146,10 +306,17 @@ export default class Home extends Vue {
 
   private async loadData(): Promise<void> {
     try {
-      this.favorites = await this.store.state.favorites;
-      this.activeCity = await this.favorites[0];
-      this.currentWeather = await this.getCurrentWeather(this.activeCity);
-      this.forecast = await this.getForecast(this.activeCity);
+      if (this.store.state.favorites.length === 0) {
+        this.store.getters.favoritesList;
+        this.favorites = await this.store.state.favorites;
+      } else {
+        this.favorites = await this.store.state.favorites;
+      }
+      this.store.commit(MutationTypes.SET_ACTIVE, this.favorites[0]);
+      this.currentWeather = await this.getCurrentWeather(
+        this.store.state.activeCity
+      );
+      this.forecast = await this.getForecast(this.store.state.activeCity);
       console.log("curr");
       console.log(this.currentWeather);
       console.log("forecast");

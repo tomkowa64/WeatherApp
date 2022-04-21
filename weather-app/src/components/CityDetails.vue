@@ -62,13 +62,19 @@
   </div>
 </template>
 <script setup lang="ts">
-import { defineProps } from "vue-class-component";
+import { defineProps, withDefaults } from "vue-class-component";
 
-defineProps<{
+interface Props {
   name: string;
   temp: number;
   desc: string;
-}>();
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  name: "Example",
+  temp: 0,
+  desc: "Text",
+});
 </script>
 
 <script lang="ts">

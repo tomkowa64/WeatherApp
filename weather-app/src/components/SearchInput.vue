@@ -17,7 +17,10 @@
       <li
         v-for="city in context.searchCities"
         :key="city.id"
-        @click="context.selectCity(city)"
+        @click="
+          context.selectCity(city);
+          $parent.$parent.changeContent(city);
+        "
       >
         {{ city.name }}, {{ city.country }}
       </li>
@@ -55,6 +58,12 @@ export default class SearchInput extends Vue {
       });
     });
     const selectCity = (city: City) => {
+      if (this.store.state.favorites.length === 0) {
+        this.store.commit(MutationTypes.ADD_FAVORITE, city);
+        this.store.commit(MutationTypes.SET_ACTIVE, city);
+      } else {
+        this.store.commit(MutationTypes.ADD_FAVORITE, city);
+      }
       this.store.commit(MutationTypes.ADD_FAVORITE, city);
       selectedCity.value = city.name;
       searchTerm.value = "";
