@@ -24,7 +24,6 @@ import Home from "@/views/Home.vue";
 })
 export default class App extends Vue {
   authenticated = false;
-
   data() {
     return {
       mockAccount: {

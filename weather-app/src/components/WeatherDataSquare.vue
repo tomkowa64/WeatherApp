@@ -1,6 +1,5 @@
 <template>
   <div class="square">
-    <!-- active -->
     <div class="time"><slot name="time"></slot></div>
     <div class="details">
       <div class="icon">

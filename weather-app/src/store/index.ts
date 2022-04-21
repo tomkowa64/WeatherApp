@@ -11,19 +11,21 @@ import {
 import { City } from "@/models/City";
 import createPersistedState from "vuex-persistedstate";
 
-export type State = { favorites: Array<City> };
+export type State = { favorites: Array<City>; activeCity: City };
 
-const state: State = { favorites: [] };
+const state: State = { favorites: [], activeCity: {} as City };
 
 // mutations and action
 export enum MutationTypes {
   ADD_FAVORITE = "SET_FAVORITE",
   REMOVE_FAVORITE = "REMOVE_FAVORITE",
+  SET_ACTIVE = "SET_ACTIVE",
 }
 
 export enum ActionTypes {
   ADD_FAVORITE = "SET_FAVORITE",
   REMOVE_FAVORITE = "REMOVE_FAVORITE",
+  SET_ACTIVE = "SET_ACTIVE",
 }
 
 //define mutatations
@@ -36,12 +38,16 @@ const mutations: MutationTree<State> & Mutations = {
   [MutationTypes.REMOVE_FAVORITE](state: State, payload: City) {
     state.favorites.splice(state.favorites.indexOf(payload), 1);
   },
+  [MutationTypes.SET_ACTIVE](state: State, payload: City) {
+    state.activeCity = payload;
+  },
 };
 
 //Mutation Types
 export type Mutations<S = State> = {
   [MutationTypes.ADD_FAVORITE](state: S, payload: City): void;
   [MutationTypes.REMOVE_FAVORITE](state: S, payload: City): void;
+  [MutationTypes.SET_ACTIVE](state: S, payload: City): void;
 };
 
 //actions
@@ -71,17 +77,24 @@ export const actions: ActionTree<State, State> & Actions = {
   [ActionTypes.REMOVE_FAVORITE]({ commit }, payload: City) {
     commit(MutationTypes.REMOVE_FAVORITE, payload);
   },
+  [ActionTypes.SET_ACTIVE]({ commit }, payload: City) {
+    commit(MutationTypes.SET_ACTIVE, payload);
+  },
 };
 
 //Getters types
 export type Getters = {
   favoritesList(state: State): City[];
+  getActiveCity(state: State): City;
 };
 
 //getters
 export const getters: GetterTree<State, State> & Getters = {
   favoritesList: (state) => {
     return state.favorites;
+  },
+  getActiveCity: (state) => {
+    return state.activeCity;
   },
 };
 
