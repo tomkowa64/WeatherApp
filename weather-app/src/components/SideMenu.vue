@@ -10,7 +10,10 @@
           {{ city.name }}
         </a>
         <fa
-          @click="$parent.deleteCity(city)"
+          @click="
+            $parent.deleteCity(city);
+            $parent.setBackground();
+          "
           icon="multiply"
           size="1x"
           :style="{

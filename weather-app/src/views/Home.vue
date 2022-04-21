@@ -1,5 +1,5 @@
 <template>
-  <div class="home" :class="checkState() ? 'blank' : 'sunny'">
+  <div class="home" :class="setBackground()">
     <SideMenu :activeCity="this.store.state.activeCity" />
     <div class="city-content">
       <div
@@ -41,9 +41,28 @@
 .blank {
   background: #fff;
 }
-.sunny {
+.sun {
   background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
-    url("@/assets/images/bg.jpg") no-repeat center center fixed cover;
+    url("@/assets/images/bg.jpg") no-repeat center center fixed;
+  background-size: cover;
+}
+
+.rain {
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+    url("@/assets/images/rain.jpg") no-repeat center center fixed;
+  background-size: cover;
+}
+
+.clouds {
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("@/assets/images/clouds.jpg") no-repeat center center fixed;
+  background-size: cover;
+}
+
+.storm {
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("@/assets/images/storm.jpg") no-repeat center center fixed;
+  background-size: cover;
 }
 </style>
 <script lang="ts">
@@ -69,9 +88,8 @@ export default class Home extends Vue {
   private favorites: City[] = [];
   private currentWeather: CurrentWeather = mockCurrentWeather;
   private forecast: Forecast = mockForecast;
-
   private currentDate: Date = new Date();
-
+  private currrentBg = "sun";
   //Load Methods
   public async data(): Promise<void> {
     await this.loadData();
@@ -110,7 +128,18 @@ export default class Home extends Vue {
     }
   }
   public deleteCity = (city: City) => {
-    this.store.commit(MutationTypes.REMOVE_FAVORITE, city);
+    if (this.store.state.activeCity === city) {
+      this.store.commit(MutationTypes.REMOVE_FAVORITE, city);
+      this.store.commit(MutationTypes.SET_ACTIVE, this.favorites[0]);
+      this.changeContent(this.favorites[0]);
+    } else {
+      this.store.commit(MutationTypes.REMOVE_FAVORITE, city);
+    }
+
+    if (this.store.state.favorites.length === 0) {
+      this.forecast = mockForecast;
+      this.currentWeather = mockCurrentWeather;
+    }
   };
 
   public caclculateCelsius(temp: number): number {
@@ -151,7 +180,10 @@ export default class Home extends Vue {
   public show(propsReturnedValue: string): string {
     if (propsReturnedValue.includes("clear")) {
       return "sun";
-    } else if (propsReturnedValue.includes("rain")) {
+    } else if (
+      propsReturnedValue.includes("rain") ||
+      propsReturnedValue.includes("drizz")
+    ) {
       return "rain";
     } else if (propsReturnedValue.includes("clouds")) {
       return "clouds";
@@ -161,6 +193,24 @@ export default class Home extends Vue {
       return "storm";
     } else {
       return "sun";
+    }
+  }
+
+  public setBackground(): string {
+    if (this.currentWeather.weather[0].description.includes("clear")) {
+      return "sun";
+    } else if (this.currentWeather.weather[0].description.includes("rain")) {
+      return "rain";
+    } else if (this.currentWeather.weather[0].description.includes("clouds")) {
+      return "clouds";
+    } else if (this.currentWeather.weather[0].description.includes("sun")) {
+      return "sun";
+    } else if (this.currentWeather.weather[0].description.includes("drizz")) {
+      return "rain";
+    } else if (this.currentWeather.weather[0].description.includes("")) {
+      return "blank";
+    } else {
+      return "blank";
     }
   }
 
