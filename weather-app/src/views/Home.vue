@@ -90,11 +90,17 @@ export default class Home extends Vue {
   private forecast: Forecast = mockForecast;
   private currentDate: Date = new Date();
   private currrentBg = "sun";
+  private lastUpdate = this.getCurrHourAndMinutes();
   //Load Methods
   public async data(): Promise<void> {
     await this.loadData();
   }
-
+  public mounted() {
+    setInterval(() => {
+      this.changeContent(this.store.state.activeCity);
+      this.lastUpdate = this.getCurrHourAndMinutes();
+    }, 60000);
+  }
   public async getCurrentWeather(city: City): Promise<CurrentWeather> {
     return (
       await this.axios.get<CurrentWeather>(
@@ -175,6 +181,12 @@ export default class Home extends Vue {
     let currentHour = currentDate.getHours();
     hours.push(currentHour);
     return hours;
+  }
+
+  public getCurrHourAndMinutes(): string {
+    const now = new Date();
+    const current = now.getHours() + ":" + now.getMinutes();
+    return current;
   }
 
   public show(propsReturnedValue: string): string {

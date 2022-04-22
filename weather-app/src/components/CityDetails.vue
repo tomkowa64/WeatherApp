@@ -24,8 +24,10 @@
         <div class="temp-value">{{ $parent.caclculateCelsius(temp) }}°C</div>
       </div>
       <div class="short-desc">{{ desc }}</div>
+      <div class="last-update">
+        Last update <b>{{ $parent.lastUpdate }}</b>
+      </div>
     </div>
-    <!--<div class="last-update">Last update <b>13:01</b></div>-->
     <div class="weather-props">
       <div>
         <fa
