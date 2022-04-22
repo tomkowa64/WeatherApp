@@ -54,7 +54,7 @@ const props = withDefaults(defineProps<Props>(), {
 </script>
 
 <script lang="ts">
-import { Options, Vue } from "vue-class-component";
+import { Vue } from "vue-class-component";
 import WeatherDataSquare from "@/components/WeatherDataSquare.vue";
 import { Forecast } from "@/models/Forecast";
 

@@ -16,19 +16,19 @@
         Add favorite city to observe weather
       </div>
       <CityDetails
-        v-if="this.store.state.favorites.length > 0 && currentWeather !== {}"
+        v-if="this.store.state.favorites.length > 0"
         :name="currentWeather.name"
         :temp="currentWeather.main.temp"
         :desc="currentWeather.weather[0].description"
       />
       <!-- DAILY -->
       <CityDailyForecast
-        v-if="this.store.state.favorites.length > 0 && currentWeather !== {}"
+        v-if="this.store.state.favorites.length > 0"
         :forecast="this.forecast"
       />
       <!-- HOURLY -->
       <CityHourlyForecast
-        v-if="this.store.state.favorites.length > 0 && currentWeather !== {}"
+        v-if="this.store.state.favorites.length > 0"
         :forecast="this.forecast"
       />
     </div>
@@ -64,17 +64,28 @@
     url("@/assets/images/storm.jpg") no-repeat center center fixed;
   background-size: cover;
 }
+
+.snow {
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("@/assets/images/snow.jpg") no-repeat center center fixed;
+  background-size: cover;
+}
 </style>
 <script lang="ts">
+//Vue
 import { Options, Vue } from "vue-class-component";
+//Components
 import SideMenu from "@/components/SideMenu.vue";
 import CityDetails from "@/components/CityDetails.vue";
 import CityDailyForecast from "@/components/CityDailyForecast.vue";
 import CityHourlyForecast from "@/components/CityHourlyForecast.vue";
-import { useStore, ActionTypes, MutationTypes } from "@/store";
+//Store
+import { useStore, MutationTypes } from "@/store";
+//Models
 import { City } from "@/models/City";
 import { CurrentWeather } from "@/models/CurrentWeather";
 import { Forecast } from "@/models/Forecast";
+//Mock
 import { mockCurrentWeather } from "@/mock/mockCurrentWeather";
 import { mockForecast } from "@/mock/mockForecast";
 @Options({
@@ -101,6 +112,8 @@ export default class Home extends Vue {
       this.lastUpdate = this.getCurrHourAndMinutes();
     }, 60000);
   }
+
+  //API Calls
   public async getCurrentWeather(city: City): Promise<CurrentWeather> {
     return (
       await this.axios.get<CurrentWeather>(
@@ -121,6 +134,7 @@ export default class Home extends Vue {
     ).data;
   }
 
+  //Props methods
   public async changeContent(city: City) {
     try {
       this.store.commit(MutationTypes.SET_ACTIVE, city);
@@ -128,7 +142,6 @@ export default class Home extends Vue {
         this.store.state.activeCity
       );
       this.forecast = await this.getForecast(this.store.state.activeCity);
-      console.log(this.currentWeather);
     } catch {
       console.log("err");
     }
@@ -148,16 +161,9 @@ export default class Home extends Vue {
     }
   };
 
+  //Time and units methods
   public caclculateCelsius(temp: number): number {
     return Math.round(temp - 273.15);
-  }
-
-  public checkState(): boolean {
-    if (this.store.state.favorites.length == 0) {
-      return true;
-    } else {
-      return false;
-    }
   }
 
   public getCurrDate(startDate: Date, index: number): string[] {
@@ -185,7 +191,12 @@ export default class Home extends Vue {
 
   public getCurrHourAndMinutes(): string {
     const now = new Date();
-    const current = now.getHours() + ":" + now.getMinutes();
+    let current;
+    if (now.getMinutes() < 10) {
+      current = now.getHours() + ":0" + now.getMinutes();
+    } else {
+      current = now.getHours() + ":" + now.getMinutes();
+    }
     return current;
   }
 
@@ -203,6 +214,8 @@ export default class Home extends Vue {
       return "sun";
     } else if (propsReturnedValue.includes("storm")) {
       return "storm";
+    } else if (propsReturnedValue.includes("snow")) {
+      return "snow";
     } else {
       return "sun";
     }
@@ -219,6 +232,8 @@ export default class Home extends Vue {
       return "sun";
     } else if (this.currentWeather.weather[0].description.includes("drizz")) {
       return "rain";
+    } else if (this.currentWeather.weather[0].description.includes("snow")) {
+      return "snow";
     } else if (this.currentWeather.weather[0].description.includes("")) {
       return "blank";
     } else {
@@ -239,10 +254,6 @@ export default class Home extends Vue {
         this.store.state.activeCity
       );
       this.forecast = await this.getForecast(this.store.state.activeCity);
-      console.log("curr");
-      console.log(this.currentWeather);
-      console.log("forecast");
-      console.log(this.forecast);
     } catch {
       console.log("API init error");
     }

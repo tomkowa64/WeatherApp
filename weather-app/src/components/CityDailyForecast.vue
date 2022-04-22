@@ -29,6 +29,12 @@
             size="4x"
             :style="{ color: 'rgb(179, 179, 179)' }"
           />
+          <fa
+            v-if="$parent.show(item.weather[0].description) === 'snow'"
+            icon="snowflake"
+            size="4x"
+            :style="{ color: 'rgb(182, 204, 255)' }"
+          />
         </template>
         <template #actual-temperature
           >{{ $parent.caclculateCelsius(item.temp.day) }}°C</template
@@ -54,7 +60,7 @@ const props = withDefaults(defineProps<Props>(), {
 </script>
 
 <script lang="ts">
-import { Options, Vue } from "vue-class-component";
+import { Vue } from "vue-class-component";
 import WeatherDataSquare from "@/components/WeatherDataSquare.vue";
 import { Forecast } from "@/models/Forecast";
 

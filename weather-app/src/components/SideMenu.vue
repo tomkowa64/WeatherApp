@@ -35,7 +35,7 @@ defineProps<{
 }>();
 </script>
 <script lang="ts">
-import { Options, Vue, setup } from "vue-class-component";
+import { Vue } from "vue-class-component";
 import { City } from "@/models/City";
 import SearchInput from "@/components/SearchInput.vue";
 export default class SideMenu extends Vue {}

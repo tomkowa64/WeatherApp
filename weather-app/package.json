@@ -13,8 +13,6 @@
     "@fortawesome/free-solid-svg-icons": "^6.1.1",
     "@fortawesome/vue-fontawesome": "^3.0.0-5",
     "axios": "^0.26.1",
-    "inversify-props": "^2.2.6",
-    "reflect-metadata": "^0.1.13",
     "vue": "^3.2.13",
     "vue-axios": "^3.4.1",
     "vue-class-component": "^8.0.0-0",

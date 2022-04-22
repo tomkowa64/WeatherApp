@@ -21,6 +21,12 @@
           size="7x"
           :style="{ color: '#FFF' }"
         />
+        <fa
+          v-if="$parent.show(desc) === 'snow'"
+          icon="snowflake"
+          size="4x"
+          :style="{ color: 'rgb(182, 204, 255)' }"
+        />
         <div class="temp-value">{{ $parent.caclculateCelsius(temp) }}°C</div>
       </div>
       <div class="short-desc">{{ desc }}</div>
@@ -91,8 +97,6 @@ const props = withDefaults(defineProps<Props>(), {
 </script>
 
 <script lang="ts">
-import { Options, Vue } from "vue-class-component";
-import { City } from "@/models/City";
-import { ActionTypes, MutationTypes } from "@/store";
+import { Vue } from "vue-class-component";
 export default class CityDetails extends Vue {}
 </script>
